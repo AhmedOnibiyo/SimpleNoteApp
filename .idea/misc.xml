@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/bglag/AndroidStudioProjects/SimpleNoteApp/app/src/main/res/drawable/add_new_note.xml" value="0.1635" />
+        <entry key="..\:/Users/bglag/AndroidStudioProjects/SimpleNoteApp/app/src/main/res/drawable/icon_bg.xml" value="0.187" />
+        <entry key="..\:/Users/bglag/AndroidStudioProjects/SimpleNoteApp/app/src/main/res/drawable/item_curved_border.xml" value="0.124" />
         <entry key="..\:/Users/bglag/AndroidStudioProjects/SimpleNoteApp/app/src/main/res/drawable/new_note_icon.xml" value="0.124" />
         <entry key="..\:/Users/bglag/AndroidStudioProjects/SimpleNoteApp/app/src/main/res/drawable/search_icon.xml" value="0.124" />
         <entry key="..\:/Users/bglag/AndroidStudioProjects/SimpleNoteApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
