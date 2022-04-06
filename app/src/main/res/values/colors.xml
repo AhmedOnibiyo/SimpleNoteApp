@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="app_color1">#070706</color>
+    <color name="home_background_color">#070706</color>
     <color name="app_color2">#FE9A37</color>
     <color name="app_color3">#CBDB57</color>
     <color name="app_color4">#9585BA</color>
