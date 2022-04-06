@@ -1,69 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/home_background_color"
-    android:orientation="vertical"
     tools:context=".NoteActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
-
-        <ImageView
-            android:id="@+id/back_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/icon_bg"
-            android:contentDescription="return back to homepage"
-            android:src="@drawable/back_icon" />
-
-        <ImageView
-            android:id="@+id/edit_note"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/icon_bg"
-            android:contentDescription="edit current note"
-            android:padding="5dp"
-            android:src="@drawable/edit_icon" />
-
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/baloo"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                tools:text="This is the title of the note, created on Wednesday, 6th April 2022" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/baloo"
-                android:inputType="text"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                tools:text="Lorem Ipsum Dolorem Whatnot " />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
