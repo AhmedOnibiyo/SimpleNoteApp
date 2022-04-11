@@ -7,23 +7,22 @@ import com.ahmedonibiyo.simplenoteapp.databinding.RecyclerviewItemBinding
 
 class MainAdapter(val noteList: List<Note>) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-    inner class MainViewHolder(var itemBinding: RecyclerviewItemBinding) :
-        RecyclerView.ViewHolder(itemBinding.root) {
-        fun bindItem(note: Note) {
-            itemBinding.titleTv.text = note.title
-            itemBinding.dateTv.text = note.date.toString()
-        }
+    private lateinit var mListener: onItemClickListener
 
+    interface onItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener) {
+        mListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        return MainViewHolder(
-            RecyclerviewItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+        val itemView = RecyclerviewItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
         )
+
+        return MainViewHolder(itemView, mListener)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
@@ -33,6 +32,24 @@ class MainAdapter(val noteList: List<Note>) : RecyclerView.Adapter<MainAdapter.M
 
     override fun getItemCount(): Int {
         return noteList.size
+    }
+
+    inner class MainViewHolder(
+        var itemBinding: RecyclerviewItemBinding,
+        listener: onItemClickListener
+    ) :
+        RecyclerView.ViewHolder(itemBinding.root) {
+        fun bindItem(note: Note) {
+            itemBinding.titleTv.text = note.title
+            itemBinding.dateTv.text = note.date.toString()
+        }
+
+        init {
+            itemBinding.root.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
+
     }
 
 }

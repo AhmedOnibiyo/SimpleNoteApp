@@ -2,6 +2,7 @@ package com.ahmedonibiyo.simplenoteapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import com.ahmedonibiyo.simplenoteapp.databinding.ActivityMainBinding
@@ -16,9 +17,19 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        val adapter = MainAdapter(NoteList.noteList)
+        val adapter: MainAdapter = MainAdapter(NoteList.noteList)
 
         binding?.recyclerView?.adapter = adapter
+        adapter.setOnItemClickListener(object : MainAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "You clicked on item no. $position",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
 
         binding?.fab?.setOnClickListener {
             val intent = Intent(this, NoteActivity::class.java)
