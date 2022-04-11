@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_background_color"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,23 +32,24 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="10dp"
+               android:layout_margin="10dp"
                 android:background="@drawable/icon_bg"
-                android:padding="10dp"
                 android:src="@drawable/search_icon"
                 app:tint="@color/app_color_white" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="1" />
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:background="@color/app_color3"
+            tools:listitem="@layout/recyclerview_item" />
 
     </LinearLayout>
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -59,6 +59,7 @@
         android:layout_margin="36dp"
         app:backgroundTint="@color/app_background_color"
         app:srcCompat="@drawable/add_new_note"
-        app:tint="@color/app_color_white" />
+        app:tint="@color/app_color_white"
+        android:contentDescription="@string/add_a_new_note" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
