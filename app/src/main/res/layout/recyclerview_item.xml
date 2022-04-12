@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="8dp"
-    app:cardBackgroundColor="@color/app_color4"
+    app:cardBackgroundColor="@color/app_color2"
     app:cardCornerRadius="10dp"
-    app:cardMaxElevation="10dp"
+    app:cardMaxElevation="8dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
@@ -17,21 +17,37 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/titleTv"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
+            android:layout_margin="5dp"
+            android:textSize="25sp"
             android:textStyle="bold"
             tools:text="Title" />
 
         <TextView
-            android:id="@+id/dateTv"
+            android:id="@+id/tvTimeStamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/titleTv"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_below="@id/tvTitle"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             tools:text="April 7, 2022" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/tvTitle"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/app_color_grey"
+            android:contentDescription="@string/delete_note" />
+
 
     </RelativeLayout>
 

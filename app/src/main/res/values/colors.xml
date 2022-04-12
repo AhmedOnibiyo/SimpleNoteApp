@@ -19,5 +19,6 @@
     <color name="app_color7">#DEA44D</color>
     <color name="app_color8">#9E5C32</color>
     <color name="grey">#808080</color>
+    <color name="text_hint_color">#8B8B8B</color>
 
 </resources>

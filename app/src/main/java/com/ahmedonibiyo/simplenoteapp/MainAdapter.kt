@@ -1,20 +1,26 @@
 package com.ahmedonibiyo.simplenoteapp
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmedonibiyo.simplenoteapp.databinding.RecyclerviewItemBinding
 
-class MainAdapter(val noteList: List<Note>) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter(
+    val context: Context,
+    private val noteClickInterface: NoteClickInterface,
+    private val deleteIconClickInterface: DeleteIconClickInterface
+) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-    private lateinit var mListener: onItemClickListener
+    private val allNotes = ArrayList<Note>()
 
-    interface onItemClickListener {
-        fun onItemClick(position: Int)
+    interface NoteClickInterface {
+        fun onNoteClick(note: Note)
     }
 
-    fun setOnItemClickListener(listener: onItemClickListener) {
-        mListener = listener
+    interface DeleteIconClickInterface {
+        fun onDeleteIconClick(note: Note)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -22,34 +28,36 @@ class MainAdapter(val noteList: List<Note>) : RecyclerView.Adapter<MainAdapter.M
             LayoutInflater.from(parent.context), parent, false
         )
 
-        return MainViewHolder(itemView, mListener)
+        return MainViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val note = noteList[position]
-        holder.bindItem(note)
+        holder.itemBinding.tvTitle.text = allNotes[position].noteTitle
+        holder.itemBinding.tvTimeStamp.text = "Last Updated: " + allNotes[position].timestamp
+
+        holder.itemBinding.ivDelete.setOnClickListener {
+            deleteIconClickInterface.onDeleteIconClick(allNotes[position])
+        }
+
+        holder.itemBinding.root.setOnClickListener {
+            noteClickInterface.onNoteClick(allNotes[position])
+        }
     }
 
     override fun getItemCount(): Int {
-        return noteList.size
+        return allNotes.size
+    }
+
+    fun updateList(newList: List<Note>) {
+        allNotes.clear()
+        allNotes.addAll(newList)
+        notifyDataSetChanged()
     }
 
     inner class MainViewHolder(
-        var itemBinding: RecyclerviewItemBinding,
-        listener: onItemClickListener
+        var itemBinding: RecyclerviewItemBinding
     ) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bindItem(note: Note) {
-            itemBinding.titleTv.text = note.title
-            itemBinding.dateTv.text = note.date.toString()
-        }
-
-        init {
-            itemBinding.root.setOnClickListener {
-                listener.onItemClick(adapterPosition)
-            }
-        }
-
     }
-
 }

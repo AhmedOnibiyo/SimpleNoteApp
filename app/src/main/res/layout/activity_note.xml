@@ -50,7 +50,7 @@
         tools:text="This is the title of current note, created on April 6th, 2022" />
 
     <TextView
-        android:id="@+id/tvNoteTime"
+        android:id="@+id/tvNoteTimeStamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
@@ -58,8 +58,8 @@
         android:textColor="@color/white"
         tools:text="April 7, 2022" />
 
-    <EditText
-        android:id="@+id/etNote"
+    <TextView
+        android:id="@+id/tvNoteDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"

@@ -13,4 +13,9 @@
     <string name="go_back">go back</string>
     <string name="edit">edit</string>
     <string name="add_a_new_note">add a new note</string>
+    <string name="save">Save</string>
+    <string name="delete_note">delete note</string>
+    <string name="update_note">Update Note</string>
+
+
 </resources>
