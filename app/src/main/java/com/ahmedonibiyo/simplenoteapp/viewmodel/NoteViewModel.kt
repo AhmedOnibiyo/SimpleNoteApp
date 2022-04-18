@@ -1,9 +1,12 @@
-package com.ahmedonibiyo.simplenoteapp
+package com.ahmedonibiyo.simplenoteapp.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.ahmedonibiyo.simplenoteapp.data.Note
+import com.ahmedonibiyo.simplenoteapp.data.NoteDatabase
+import com.ahmedonibiyo.simplenoteapp.data.NoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,5 +31,9 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deleteNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(note)
+    }
+
+    fun searchDatabase(searchQuery: String): LiveData<List<Note>> {
+        return repository.searchDatabase(searchQuery)
     }
 }

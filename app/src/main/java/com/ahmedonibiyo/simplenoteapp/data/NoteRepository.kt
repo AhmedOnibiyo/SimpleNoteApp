@@ -1,6 +1,7 @@
-package com.ahmedonibiyo.simplenoteapp
+package com.ahmedonibiyo.simplenoteapp.data
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 
 class NoteRepository(private val notesDao: NotesDao) {
 
@@ -16,5 +17,9 @@ class NoteRepository(private val notesDao: NotesDao) {
 
     suspend fun delete(note: Note) {
         notesDao.delete(note)
+    }
+
+    fun searchDatabase(searchQuery: String): LiveData<List<Note>> {
+        return notesDao.searchDatabase(searchQuery)
     }
 }

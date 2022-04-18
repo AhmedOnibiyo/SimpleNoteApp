@@ -50,7 +50,7 @@
         tools:text="This is the title of current note, created on April 6th, 2022" />
 
     <TextView
-        android:id="@+id/tvNoteTimeStamp"
+        android:id="@+id/tvTimeStamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"

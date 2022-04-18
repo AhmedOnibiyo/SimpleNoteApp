@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.ahmedonibiyo.simplenoteapp.data.Note
 import com.ahmedonibiyo.simplenoteapp.databinding.ActivityEditNoteBinding
+import com.ahmedonibiyo.simplenoteapp.viewmodel.NoteViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,6 +62,12 @@ class EditNoteActivity : AppCompatActivity() {
                 }
             }
             startActivity(Intent(applicationContext, MainActivity::class.java))
+            this.finish()
+        }
+
+        binding.backBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             this.finish()
         }
     }

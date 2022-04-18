@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SimpleNoteApp</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="app_label">SimpleNoteApp</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -16,6 +17,8 @@
     <string name="save">Save</string>
     <string name="delete_note">delete note</string>
     <string name="update_note">Update Note</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Search</string>
 
 
 </resources>

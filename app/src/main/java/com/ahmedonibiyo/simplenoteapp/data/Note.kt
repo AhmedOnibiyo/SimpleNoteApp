@@ -1,4 +1,4 @@
-package com.ahmedonibiyo.simplenoteapp
+package com.ahmedonibiyo.simplenoteapp.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -15,8 +15,6 @@ data class Note(
     @ColumnInfo(name = "timeStamp")
     val timestamp: String
 ) {
-
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-
 }

@@ -1,8 +1,9 @@
-package com.ahmedonibiyo.simplenoteapp
+package com.ahmedonibiyo.simplenoteapp.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.IGNORE
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NotesDao {
@@ -15,6 +16,9 @@ interface NotesDao {
     @Delete
     suspend fun delete(note: Note)
 
-    @Query("SELECT * from notesTable order by id ASC")
+    @Query("SELECT * FROM notesTable ORDER BY id ASC")
     fun getAllNotes(): LiveData<List<Note>>
+
+    @Query("SELECT * FROM notesTable WHERE title LIKE :searchQuery")
+    fun searchDatabase(searchQuery: String): LiveData<List<Note>>
 }

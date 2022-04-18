@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ahmedonibiyo.simplenoteapp.data.Note
 import com.ahmedonibiyo.simplenoteapp.databinding.RecyclerviewItemBinding
+import java.util.*
 
 class MainAdapter(
     val context: Context,
@@ -14,6 +17,15 @@ class MainAdapter(
 ) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
     private val allNotes = ArrayList<Note>()
+
+    inner class MainViewHolder(
+        var binding: RecyclerviewItemBinding
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+        var tvTitle: TextView = binding.tvTitle
+        var tvTimeStamp: TextView = binding.tvTimeStamp
+        var ivDelete = binding.ivDelete
+    }
 
     interface NoteClickInterface {
         fun onNoteClick(note: Note)
@@ -24,40 +36,52 @@ class MainAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        val itemView = RecyclerviewItemBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-
-        return MainViewHolder(itemView)
+        return MainViewHolder(
+            RecyclerviewItemBinding.inflate(
+                LayoutInflater.from(context),
+                parent,
+                false
+            ))
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.itemBinding.tvTitle.text = allNotes[position].noteTitle
-        holder.itemBinding.tvTimeStamp.text = "Last Updated: " + allNotes[position].timestamp
+        holder.tvTitle.text = allNotes[position].noteTitle
+        holder.tvTimeStamp.text = "Last Updated: " + allNotes[position].timestamp
 
-        holder.itemBinding.ivDelete.setOnClickListener {
+        holder.ivDelete.setOnClickListener {
             deleteIconClickInterface.onDeleteIconClick(allNotes[position])
         }
 
-        holder.itemBinding.root.setOnClickListener {
+        holder.binding.root.setOnClickListener {
             noteClickInterface.onNoteClick(allNotes[position])
         }
+    }
+
+    private fun getRandomColor(): Int {
+        var colorCode: MutableList<Int> = ArrayList<Int>()
+
+        colorCode.add(R.color.app_color1)
+        colorCode.add(R.color.app_color2)
+        colorCode.add(R.color.app_color3)
+        colorCode.add(R.color.app_color4)
+        colorCode.add(R.color.app_color5)
+        colorCode.add(R.color.app_color6)
+        colorCode.add(R.color.app_color7)
+
+        return Random().nextInt(colorCode.size)
+
     }
 
     override fun getItemCount(): Int {
         return allNotes.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateList(newList: List<Note>) {
         allNotes.clear()
         allNotes.addAll(newList)
         notifyDataSetChanged()
     }
 
-    inner class MainViewHolder(
-        var itemBinding: RecyclerviewItemBinding
-    ) :
-        RecyclerView.ViewHolder(itemBinding.root) {
-    }
 }

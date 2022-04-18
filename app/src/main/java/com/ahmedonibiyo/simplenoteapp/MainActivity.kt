@@ -2,28 +2,31 @@ package com.ahmedonibiyo.simplenoteapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.ahmedonibiyo.simplenoteapp.data.Note
 import com.ahmedonibiyo.simplenoteapp.databinding.ActivityMainBinding
+import com.ahmedonibiyo.simplenoteapp.viewmodel.NoteViewModel
 
 class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
-    MainAdapter.DeleteIconClickInterface {
+    MainAdapter.DeleteIconClickInterface, SearchView.OnQueryTextListener {
 
-    private var binding: ActivityMainBinding? = null
+    private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: NoteViewModel
+    private val adapter: MainAdapter by lazy { MainAdapter(this, this, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+        setContentView(binding.root)
 
-        binding?.recyclerView?.layoutManager =
+        binding.recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-
-        val adapter = MainAdapter(this, this, this)
-        binding?.recyclerView?.adapter = adapter
+        binding.recyclerView.adapter = adapter
 
         viewModel = ViewModelProvider(
             this,
@@ -35,16 +38,11 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
             }
         }
 
-        binding?.fab?.setOnClickListener {
+        binding.fab.setOnClickListener {
             val intent = Intent(this, EditNoteActivity::class.java)
             startActivity(intent)
             this.finish()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding = null
     }
 
     override fun onNoteClick(note: Note) {
@@ -52,6 +50,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
         intent.putExtra("noteType", "Edit")
         intent.putExtra("noteTitle", note.noteTitle)
         intent.putExtra("noteDescription", note.noteDescription)
+        intent.putExtra("noteTimeStamp", note.timestamp)
         intent.putExtra("noteID", note.id)
         startActivity(intent)
         this.finish()
@@ -60,5 +59,38 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
     override fun onDeleteIconClick(note: Note) {
         viewModel.deleteNote(note)
         Toast.makeText(this@MainActivity, "${note.noteTitle} Deleted", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+
+        val search = menu.findItem(R.menu.main_menu)
+        val searchView = search.actionView as SearchView
+        searchView.isSubmitButtonEnabled = true
+        searchView.setOnQueryTextListener(this)
+
+        return true
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+       if (query != null) {
+           searchDatabase(query)
+       }
+
+        return true
+    }
+
+    private fun searchDatabase(query: String) {
+        val searchQuery = "%$query%"
+
+        viewModel.searchDatabase(searchQuery).observe(this) { list ->
+            list.let {
+                adapter.updateList(it)
+            }
+        }
     }
 }

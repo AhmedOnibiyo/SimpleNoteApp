@@ -1,4 +1,4 @@
-package com.ahmedonibiyo.simplenoteapp
+package com.ahmedonibiyo.simplenoteapp.data
 
 import android.content.Context
 import androidx.room.Database
