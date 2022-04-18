@@ -44,17 +44,17 @@ class EditNoteActivity : AppCompatActivity() {
 
             if (noteType.equals("Edit")) {
                 if (noteTitle.isNotEmpty() && noteDesc.isNotEmpty()) {
-                    val sdf = SimpleDateFormat("MMMM dd, yyyy - HH:mm", Locale.getDefault())
+                    val sdf = SimpleDateFormat("MMMM dd, yyyy- HH:mm", Locale.getDefault())
                     val currentDate = sdf.format(Date())
                     val updateNote = Note(noteTitle, noteDesc, currentDate)
                     updateNote.id = noteID
 
                     viewModel.updateNote(updateNote)
-                    Toast.makeText(this, "Note Updated...", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Note Updated..", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 if (noteTitle.isNotEmpty() && noteDesc.isNotEmpty()) {
-                    val sdf = SimpleDateFormat("MMMM dd, yyyy - HH:mm", Locale.getDefault())
+                    val sdf = SimpleDateFormat("MMMM dd, yyyy- HH:mm", Locale.getDefault())
                     val currentDate = sdf.format(Date())
 
                     viewModel.addNote(Note(noteTitle, noteDesc, currentDate))
