@@ -2,13 +2,13 @@ package com.ahmedonibiyo.simplenoteapp
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmedonibiyo.simplenoteapp.data.Note
 import com.ahmedonibiyo.simplenoteapp.databinding.RecyclerviewItemBinding
-import java.util.*
 
 class MainAdapter(
     val context: Context,
@@ -41,13 +41,17 @@ class MainAdapter(
                 LayoutInflater.from(context),
                 parent,
                 false
-            ))
+            )
+        )
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.tvTitle.text = allNotes[position].noteTitle
-        holder.tvTimeStamp.text = "Last Updated: " + allNotes[position].timestamp
+        val note: Note = allNotes[position]
+        holder.binding.root.setCardBackgroundColor(getRandomColor())
+
+        holder.tvTitle.text = note.noteTitle
+        holder.tvTimeStamp.text = note.timestamp
 
         holder.ivDelete.setOnClickListener {
             deleteIconClickInterface.onDeleteIconClick(allNotes[position])
@@ -56,20 +60,21 @@ class MainAdapter(
         holder.binding.root.setOnClickListener {
             noteClickInterface.onNoteClick(allNotes[position])
         }
+
     }
 
     private fun getRandomColor(): Int {
-        var colorCode: MutableList<Int> = ArrayList<Int>()
+        val colorCode = arrayOf(
+            Color.parseColor("#FE9A37"),
+            Color.parseColor("#CBDB57"),
+            Color.parseColor("#9585BA"),
+            Color.parseColor("#5C4F45"),
+            Color.parseColor("#F96A4B"),
+            Color.parseColor("#DEA44D"),
+            Color.parseColor("#9E5C32")
+        )
 
-        colorCode.add(R.color.app_color1)
-        colorCode.add(R.color.app_color2)
-        colorCode.add(R.color.app_color3)
-        colorCode.add(R.color.app_color4)
-        colorCode.add(R.color.app_color5)
-        colorCode.add(R.color.app_color6)
-        colorCode.add(R.color.app_color7)
-
-        return Random().nextInt(colorCode.size)
+        return colorCode.random()
 
     }
 
