@@ -13,7 +13,7 @@ import java.util.*
 
 class EditNoteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditNoteBinding
-    lateinit var viewModel: NoteViewModel
+    private lateinit var viewModel: NoteViewModel
     var noteID: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +46,7 @@ class EditNoteActivity : AppCompatActivity() {
                 if (noteTitle.isNotEmpty() && noteDesc.isNotEmpty()) {
                     val sdf = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
                     val currentDate = sdf.format(Date())
+
                     val updateNote = Note(noteTitle, noteDesc, currentDate)
                     updateNote.id = noteID
 

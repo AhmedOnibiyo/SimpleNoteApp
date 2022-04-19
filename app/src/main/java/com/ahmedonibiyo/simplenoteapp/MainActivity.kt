@@ -1,11 +1,13 @@
 package com.ahmedonibiyo.simplenoteapp
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ahmedonibiyo.simplenoteapp.data.Note
@@ -13,7 +15,7 @@ import com.ahmedonibiyo.simplenoteapp.databinding.ActivityMainBinding
 import com.ahmedonibiyo.simplenoteapp.viewmodel.NoteViewModel
 
 class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
-    MainAdapter.DeleteIconClickInterface, SearchView.OnQueryTextListener {
+    MainAdapter.DeleteIconClickInterface {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: NoteViewModel
@@ -43,6 +45,8 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
             startActivity(intent)
             this.finish()
         }
+
+        setSupportActionBar(binding.toolbar)
     }
 
     override fun onNoteClick(note: Note) {
@@ -64,22 +68,30 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
 
-        val search = menu.findItem(R.menu.main_menu)
-        val searchView = search.actionView as SearchView
+        val manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchItem = menu.findItem(R.id.menu_search)
+        val searchView = searchItem.actionView as SearchView
         searchView.isSubmitButtonEnabled = true
-        searchView.setOnQueryTextListener(this)
 
-        return true
-    }
+        searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        return true
-    }
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    searchDatabase(query)
+                }
+                
+                return true
+            }
 
-    override fun onQueryTextChange(query: String?): Boolean {
-       if (query != null) {
-           searchDatabase(query)
-       }
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query != null) {
+                    searchDatabase(query)
+                }
+
+                return true
+            }
+        })
 
         return true
     }
