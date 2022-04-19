@@ -28,7 +28,7 @@ class NoteActivity : AppCompatActivity() {
             val noteTitle = intent.getStringExtra("noteTitle")
             val noteDesc = intent.getStringExtra("noteDescription")
             val noteTimeStamp = intent.getStringExtra("noteTimeStamp")
-            noteID = intent.getIntExtra("noteID", 0)
+            noteID = intent.getIntExtra("noteID", -1)
             binding.tvNoteTitle.text = noteTitle
             binding.tvNoteDesc.text = noteDesc
             binding.tvTimeStamp.text = noteTimeStamp
@@ -45,6 +45,7 @@ class NoteActivity : AppCompatActivity() {
             intent.putExtra("noteType", "Edit")
             intent.putExtra("noteTitle", binding.tvNoteTitle.text)
             intent.putExtra("noteDescription", binding.tvNoteDesc.text)
+            intent.putExtra("noteID", noteID)
             intent.putExtra("noteTimeStamp", binding.tvTimeStamp.text)
             startActivity(intent)
 

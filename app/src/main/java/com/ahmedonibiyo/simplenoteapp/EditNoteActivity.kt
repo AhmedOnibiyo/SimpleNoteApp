@@ -30,7 +30,7 @@ class EditNoteActivity : AppCompatActivity() {
         if (noteType.equals("Edit")) {
             val noteTitle = intent.getStringExtra("noteTitle")
             val noteDesc = intent.getStringExtra("noteDescription")
-            noteID = intent.getIntExtra("noteID", 0)
+            noteID = intent.getIntExtra("noteID", -1)
             binding.saveBtn.text = getString(R.string.update_note)
             binding.etNoteTitle.setText(noteTitle)
             binding.etNoteDescription.setText(noteDesc)
@@ -44,7 +44,7 @@ class EditNoteActivity : AppCompatActivity() {
 
             if (noteType.equals("Edit")) {
                 if (noteTitle.isNotEmpty() && noteDesc.isNotEmpty()) {
-                    val sdf = SimpleDateFormat("MMMM dd, yyyy- HH:mm", Locale.getDefault())
+                    val sdf = SimpleDateFormat("MMMM dd, yyyy - HH:mm", Locale.getDefault())
                     val currentDate = sdf.format(Date())
                     val updateNote = Note(noteTitle, noteDesc, currentDate)
                     updateNote.id = noteID
@@ -54,7 +54,7 @@ class EditNoteActivity : AppCompatActivity() {
                 }
             } else {
                 if (noteTitle.isNotEmpty() && noteDesc.isNotEmpty()) {
-                    val sdf = SimpleDateFormat("MMMM dd, yyyy- HH:mm", Locale.getDefault())
+                    val sdf = SimpleDateFormat("MMMM dd, yyyy - HH:mm", Locale.getDefault())
                     val currentDate = sdf.format(Date())
 
                     viewModel.addNote(Note(noteTitle, noteDesc, currentDate))
