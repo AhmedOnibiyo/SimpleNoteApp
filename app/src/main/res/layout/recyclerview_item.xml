@@ -20,8 +20,13 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textSize="25sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/app_background_color"
+            android:textSize="20sp"
             android:textStyle="bold"
             tools:text="Title" />
 
@@ -33,20 +38,23 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/date_stamp_color"
+            android:textSize="15sp"
             tools:text="April 7, 2022" />
 
         <ImageView
             android:id="@+id/iv_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/tvTitle"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
+            android:layout_toStartOf="@id/tvTitle"
+            android:contentDescription="@string/delete_note"
             android:padding="4dp"
             android:src="@drawable/ic_delete"
-            app:tint="@color/app_color_grey"
-            android:contentDescription="@string/delete_note" />
+            app:tint="@color/btn_color_grey" />
 
 
     </RelativeLayout>

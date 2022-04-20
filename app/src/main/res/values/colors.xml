@@ -10,7 +10,7 @@
 
     <color name="app_background_color">#252525</color>
     <color name="app_color_white">#EDEDED</color>
-    <color name="app_color_grey">#3B3B3B</color>
+    <color name="btn_color_grey">#3B3B3B</color>
     <color name="app_color1">#FE9A37</color>
     <color name="app_color2">#CBDB57</color>
     <color name="app_color3">#9585BA</color>
@@ -19,6 +19,7 @@
     <color name="app_color6">#DEA44D</color>
     <color name="app_color7">#9E5C32</color>
     <color name="grey">#808080</color>
+    <color name="date_stamp_color">#7B7B7B</color>
     <color name="text_hint_color">#8B8B8B</color>
 
 </resources>

@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
             }
         }
 
+        binding.recyclerView.setOnLongClickListener {
+            Toast.makeText(this, "Long click pressed..", Toast.LENGTH_SHORT).show()
+            true
+        }
+
         binding.fab.setOnClickListener {
             val intent = Intent(this, EditNoteActivity::class.java)
             startActivity(intent)
@@ -80,7 +85,6 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
                 if (query != null) {
                     searchDatabase(query)
                 }
-                
                 return true
             }
 
@@ -88,11 +92,9 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
                 if (query != null) {
                     searchDatabase(query)
                 }
-
                 return true
             }
         })
-
         return true
     }
 
