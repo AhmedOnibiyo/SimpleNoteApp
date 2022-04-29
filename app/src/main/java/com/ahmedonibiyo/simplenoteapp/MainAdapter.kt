@@ -13,26 +13,21 @@ import com.ahmedonibiyo.simplenoteapp.databinding.RecyclerviewItemBinding
 class MainAdapter(
     val context: Context,
     private val noteClickInterface: NoteClickInterface,
-    private val deleteIconClickInterface: DeleteIconClickInterface
 ) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
     private val allNotes = ArrayList<Note>()
 
-    inner class MainViewHolder(
-        var binding: RecyclerviewItemBinding
-    ) :
+    inner class MainViewHolder(var binding: RecyclerviewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var tvTitle: TextView = binding.tvTitle
-        var tvTimeStamp: TextView = binding.tvTimeStamp
-        var ivDelete = binding.ivDelete
+        var tvDateStamp: TextView = binding.tvDate
+        var cardView = binding.root
+
     }
 
     interface NoteClickInterface {
-        fun onNoteClick(note: Note)
-    }
-
-    interface DeleteIconClickInterface {
-        fun onDeleteIconClick(note: Note)
+        fun onItemClick(note: Note)
+        fun onLongClick(note: Note)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -48,21 +43,22 @@ class MainAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val note: Note = allNotes[position]
-        holder.binding.root.setCardBackgroundColor(getRandomColor())
+        holder.cardView.setCardBackgroundColor(getRandomColor())
 
         holder.tvTitle.text = note.noteTitle
-        holder.tvTimeStamp.text = note.timestamp
+        holder.tvDateStamp.text = note.dateStamp
 
-        holder.ivDelete.setOnClickListener {
-            deleteIconClickInterface.onDeleteIconClick(allNotes[position])
+        holder.cardView.setOnClickListener {
+            noteClickInterface.onItemClick(allNotes[position])
         }
 
-        holder.binding.root.setOnClickListener {
-            noteClickInterface.onNoteClick(allNotes[position])
+        holder.cardView.setOnLongClickListener {
+            noteClickInterface.onLongClick(allNotes[position])
+            true
         }
-
     }
 
+    // Review: Use color resources instead
     private fun getRandomColor(): Int {
         val colorCode = arrayOf(
             Color.parseColor("#FE9A37"),
@@ -75,13 +71,13 @@ class MainAdapter(
         )
 
         return colorCode.random()
-
     }
 
     override fun getItemCount(): Int {
         return allNotes.size
     }
 
+    // review: viewModel should be aware of changes
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newList: List<Note>) {
         allNotes.clear()

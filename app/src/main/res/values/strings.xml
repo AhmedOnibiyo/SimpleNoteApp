@@ -12,6 +12,8 @@
     <string name="update_note">Update Note</string>
     <string name="search">Search</string>
     <string name="search_hint">Search</string>
+    <string name="delete">Delete</string>
+    <string name="marked">marked</string>
 
 
 </resources>
