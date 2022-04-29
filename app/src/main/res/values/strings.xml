@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">SimpleNoteApp</string>
+    <string name="app_name">Note App</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="app_label">SimpleNoteApp</string>
+    <string name="app_label">Note App</string>
 
     <string name="notes">Notes</string>
     <string name="go_back">go back</string>

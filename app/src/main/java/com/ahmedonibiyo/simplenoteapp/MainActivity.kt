@@ -61,11 +61,6 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface {
     }
 
     override fun onLongClick(note: Note) {
-        Toast.makeText(
-            this,
-            "Note ${note.id} was clicked...",
-            Toast.LENGTH_SHORT
-        ).show()
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("Delete Note")
@@ -117,7 +112,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface {
                 return true
             }
         })
-        
+
         return true
     }
 
