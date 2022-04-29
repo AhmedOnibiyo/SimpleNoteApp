@@ -27,11 +27,11 @@ class NoteActivity : AppCompatActivity() {
         if (noteType.equals("Edit")) {
             val noteTitle = intent.getStringExtra("noteTitle")
             val noteDesc = intent.getStringExtra("noteDescription")
-            val noteTimeStamp = intent.getStringExtra("noteTimeStamp")
+            val noteTimeStamp = intent.getStringExtra("noteDateStamp")
             noteID = intent.getIntExtra("noteID", -1)
             binding.tvNoteTitle.text = noteTitle
             binding.tvNoteDesc.text = noteDesc
-            binding.tvTimeStamp.text = noteTimeStamp
+            binding.tvDateStamp.text = noteTimeStamp
         }
 
         binding.backBtn.setOnClickListener {
@@ -46,15 +46,8 @@ class NoteActivity : AppCompatActivity() {
             intent.putExtra("noteTitle", binding.tvNoteTitle.text)
             intent.putExtra("noteDescription", binding.tvNoteDesc.text)
             intent.putExtra("noteID", noteID)
-            intent.putExtra("noteTimeStamp", binding.tvTimeStamp.text)
+            intent.putExtra("noteDateStamp", binding.tvDateStamp.text)
             startActivity(intent)
-
-//            Toast.makeText(
-//                this,
-//                "Keep calm we shall implement that feature soon...",
-//                Toast.LENGTH_SHORT
-//            ).show()
         }
-
     }
 }

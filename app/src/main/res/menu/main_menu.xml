@@ -4,11 +4,9 @@
 
     <item
         android:id="@+id/menu_search"
-        android:icon="@drawable/search_icon"
-        android:iconTint="@color/white"
+        android:icon="@drawable/ic_search"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
-
 
 </menu>

@@ -3,7 +3,6 @@ package com.ahmedonibiyo.simplenoteapp.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.IGNORE
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NotesDao {

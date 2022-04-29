@@ -12,8 +12,10 @@ data class Note(
     @ColumnInfo(name = "description")
     val noteDescription: String,
 
-    @ColumnInfo(name = "timeStamp")
-    val timestamp: String
+    @ColumnInfo(name = "dateStamp")
+    val dateStamp: String
+
+//    val noteColor: String
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

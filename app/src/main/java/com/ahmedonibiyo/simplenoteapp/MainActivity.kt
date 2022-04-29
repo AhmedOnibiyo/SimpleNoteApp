@@ -1,5 +1,6 @@
 package com.ahmedonibiyo.simplenoteapp
 
+import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -14,12 +15,11 @@ import com.ahmedonibiyo.simplenoteapp.data.Note
 import com.ahmedonibiyo.simplenoteapp.databinding.ActivityMainBinding
 import com.ahmedonibiyo.simplenoteapp.viewmodel.NoteViewModel
 
-class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
-    MainAdapter.DeleteIconClickInterface {
+class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: NoteViewModel
-    private val adapter: MainAdapter by lazy { MainAdapter(this, this, this) }
+    private val adapter: MainAdapter by lazy { MainAdapter(this, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +40,6 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
             }
         }
 
-        binding.recyclerView.setOnLongClickListener {
-            Toast.makeText(this, "Long click pressed..", Toast.LENGTH_SHORT).show()
-            true
-        }
-
         binding.fab.setOnClickListener {
             val intent = Intent(this, EditNoteActivity::class.java)
             startActivity(intent)
@@ -54,20 +49,45 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
         setSupportActionBar(binding.toolbar)
     }
 
-    override fun onNoteClick(note: Note) {
+    override fun onItemClick(note: Note) {
         val intent = Intent(this, NoteActivity::class.java)
         intent.putExtra("noteType", "Edit")
         intent.putExtra("noteTitle", note.noteTitle)
         intent.putExtra("noteDescription", note.noteDescription)
-        intent.putExtra("noteTimeStamp", note.timestamp)
+        intent.putExtra("noteDateStamp", note.dateStamp)
         intent.putExtra("noteID", note.id)
         startActivity(intent)
         this.finish()
     }
 
-    override fun onDeleteIconClick(note: Note) {
-        viewModel.deleteNote(note)
-        Toast.makeText(this@MainActivity, "${note.noteTitle} Deleted", Toast.LENGTH_SHORT).show()
+    override fun onLongClick(note: Note) {
+        Toast.makeText(
+            this,
+            "Note ${note.id} was clicked...",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete Note")
+        builder.setMessage("Do you really want to delete the note ?")
+        builder.setIcon(R.drawable.ic_delete)
+
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            viewModel.deleteNote(note)
+            Toast.makeText(this@MainActivity, "${note.noteTitle} Deleted", Toast.LENGTH_SHORT)
+                .show()
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.setNeutralButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -85,6 +105,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
                 if (query != null) {
                     searchDatabase(query)
                 }
+
                 return true
             }
 
@@ -92,13 +113,15 @@ class MainActivity : AppCompatActivity(), MainAdapter.NoteClickInterface,
                 if (query != null) {
                     searchDatabase(query)
                 }
+
                 return true
             }
         })
+        
         return true
     }
 
-    private fun searchDatabase(query: String) {
+    internal fun searchDatabase(query: String) {
         val searchQuery = "%$query%"
 
         viewModel.searchDatabase(searchQuery).observe(this) { list ->
